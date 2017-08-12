@@ -70,7 +70,7 @@ class ViewController: UICollectionViewController {
     layout.scrollDirection = .vertical
     layout.minimumLineSpacing = 10
     layout.sectionInset = UIEdgeInsetsMake(padding, padding, padding, padding)
-    layout.headerReferenceSize = CGSize(width: collectionView!.frame.width, height: 30)
+    layout.headerReferenceSize = CGSize(width: collectionView!.frame.width, height: 40)
     return layout
   }
   
@@ -123,8 +123,6 @@ class ViewController: UICollectionViewController {
         cell.notesLabel.text = dish.notes.joined(separator: ", ")
       }
     }
-    cell.layer.borderWidth = 1.0
-    cell.layer.borderColor = UIColor.lightGray.cgColor
     cell.layer.cornerRadius = 10
     
     return cell
