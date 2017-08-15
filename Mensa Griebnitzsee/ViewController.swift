@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MensaKit
 
 class ViewController: UICollectionViewController {
   

@@ -7,13 +7,13 @@
 
 import Foundation
 
-class UrlBuilder {
+open class UrlBuilder {
   
-  static func buildDaysRequestUrl() -> URL? {
+  open static func buildDaysRequestUrl() -> URL? {
     return URL(string: "http://openmensa.org/api/v2/canteens/62/days")
   }
   
-  static func buildMenuRequestUrl(for date: String) -> URL? {
+  open static func buildMenuRequestUrl(for date: String) -> URL? {
     return URL(string: "http://openmensa.org/api/v2/canteens/62/days/" + date + "/meals")
   }
   

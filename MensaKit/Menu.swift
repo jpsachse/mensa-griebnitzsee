@@ -7,34 +7,34 @@
 
 import Foundation
 
-struct MenuDish {
-  let name: String
-  let category: String
-  let notes: [String]
+public struct MenuDish {
+  public let name: String
+  public let category: String
+  public let notes: [String]
   
-  var description: String {
+  public var description: String {
     get {
       return category + ": " + name + " (" + notes.joined(separator: ", ") + ")"
     }
   }
 }
 
-struct MenuEntry {
-  let date: Date
-  let closed: Bool
-  let dishes: [MenuDish]
+public struct MenuEntry {
+  public let date: Date
+  public let closed: Bool
+  public let dishes: [MenuDish]
 }
 
-class Menu {
+public class Menu {
   
-  var entries: [MenuEntry] = []
+  public var entries: [MenuEntry] = []
   private let dateFormatter = DateFormatter()
   
-  init() {
+  public init() {
     dateFormatter.dateFormat = "yyyy-MM-dd"
   }
   
-  func addEntry(loadedData: Data?, at date: String, closed: Bool) {
+  public func addEntry(loadedData: Data?, at date: String, closed: Bool) {
     guard let date = dateFormatter.date(from: date) else {
       return
     }
