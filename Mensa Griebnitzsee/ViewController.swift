@@ -93,7 +93,7 @@ class ViewController: UICollectionViewController {
     if let loadedMenu = loadedMenu {
       return loadedMenu.entries.count
     }
-    return 0
+    return 1
   }
   
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -104,12 +104,14 @@ class ViewController: UICollectionViewController {
       }
       return loadedMenu.entries[section].dishes.count
     }
-    return 0
+    return 1
   }
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     guard let loadedMenu = loadedMenu, indexPath.section < loadedMenu.entries.count else {
-      return collectionView.dequeueReusableCell(withReuseIdentifier: "emptyCell", for: indexPath)
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "noDataCell", for: indexPath)
+      cell.layer.cornerRadius = 10
+      return cell
     }
     let entry = loadedMenu.entries[indexPath.section]
     var cell: UICollectionViewCell!
@@ -134,9 +136,14 @@ class ViewController: UICollectionViewController {
     let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                withReuseIdentifier: "sectionHeader",
                                                                for: indexPath)
-    if let view = view as? MenuHeaderCollectionReusableView, let loadedMenu = loadedMenu {
+    guard let menuHeader = view as? MenuHeaderCollectionReusableView else {
+      return view
+    }
+    if let loadedMenu = loadedMenu {
       let dateString = dateFormatter.string(from: loadedMenu.entries[indexPath.section].date)
-      view.label.text = dateString
+      menuHeader.label.text = dateString
+    } else {
+      menuHeader.label.text = nil
     }
     return view
   }

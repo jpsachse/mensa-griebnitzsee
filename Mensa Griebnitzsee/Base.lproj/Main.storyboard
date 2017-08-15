@@ -31,7 +31,7 @@
         <scene sceneID="cHV-f9-C8m">
             <objects>
                 <collectionViewController id="fFd-VG-Ic3" customClass="ViewController" customModule="Mensa_Griebnitzsee" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" springLoaded="YES" id="Xyf-az-o2h">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" springLoaded="YES" id="Xyf-az-o2h">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bik-pl-rKn">
@@ -44,7 +44,7 @@
                             <rect key="frame" x="0.0" y="-64" width="320" height="568"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="funky-fruit" translatesAutoresizingMaskIntoConstraints="NO" id="zm1-71-aXT">
+                                <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="zm1-71-aXT">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 </imageView>
                                 <visualEffectView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iaf-Dz-dsU">
@@ -126,7 +126,7 @@
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="closedCell" id="YNK-Sf-5Tf">
-                                <rect key="frame" x="60" y="270" width="200" height="100"/>
+                                <rect key="frame" x="60" y="160" width="200" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
@@ -158,13 +158,42 @@
                                     <constraint firstItem="WhF-hH-uyp" firstAttribute="centerY" secondItem="YNK-Sf-5Tf" secondAttribute="centerY" id="yar-Za-TDG"/>
                                 </constraints>
                             </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="emptyCell" id="Biq-sb-22N">
-                                <rect key="frame" x="60" y="160" width="200" height="100"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="noDataCell" id="Biq-sb-22N">
+                                <rect key="frame" x="60" y="270" width="200" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BlR-r3-tfW">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="zMD-Ex-duI">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keine Daten 😿" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sj6-EG-ZCM">
+                                                        <rect key="frame" x="0.5" y="40" width="200" height="21"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="sj6-EG-ZCM" firstAttribute="width" secondItem="zMD-Ex-duI" secondAttribute="width" id="Rs6-1P-HPa"/>
+                                                    <constraint firstItem="sj6-EG-ZCM" firstAttribute="centerX" secondItem="zMD-Ex-duI" secondAttribute="centerX" id="SrK-wV-4j5"/>
+                                                    <constraint firstItem="sj6-EG-ZCM" firstAttribute="centerY" secondItem="zMD-Ex-duI" secondAttribute="centerY" id="Zk2-HE-6sJ"/>
+                                                </constraints>
+                                            </view>
+                                            <blurEffect style="light"/>
+                                        </visualEffectView>
+                                    </subviews>
                                 </view>
+                                <constraints>
+                                    <constraint firstItem="BlR-r3-tfW" firstAttribute="width" secondItem="Biq-sb-22N" secondAttribute="width" id="QnG-Ye-y4f"/>
+                                    <constraint firstItem="BlR-r3-tfW" firstAttribute="centerX" secondItem="Biq-sb-22N" secondAttribute="centerX" id="a8K-M7-5oj"/>
+                                    <constraint firstItem="BlR-r3-tfW" firstAttribute="centerY" secondItem="Biq-sb-22N" secondAttribute="centerY" id="f4T-8E-GQs"/>
+                                    <constraint firstItem="BlR-r3-tfW" firstAttribute="height" secondItem="Biq-sb-22N" secondAttribute="height" id="txU-O5-Xdj"/>
+                                </constraints>
                             </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="sectionHeader" id="ndX-Rm-x81" customClass="MenuHeaderCollectionReusableView" customModule="Mensa_Griebnitzsee" customModuleProvider="target">
@@ -193,7 +222,7 @@
                             <outlet property="delegate" destination="fFd-VG-Ic3" id="cOc-j2-E55"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Menü Mensa Griebnitzsee" largeTitleDisplayMode="always" id="3rn-1c-Esd"/>
+                    <navigationItem key="navigationItem" title="Menü Mensa Griebnitzsee" id="3rn-1c-Esd"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qWd-MP-tXh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -201,6 +230,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="funky-fruit" width="960" height="809"/>
+        <image name="icon" width="1536" height="1536"/>
     </resources>
 </document>
