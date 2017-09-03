@@ -43,12 +43,17 @@ class ViewController: UICollectionViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     refreshControl.beginRefreshing()
-    updateMenu()
+    let order = Calendar.current.compare(menuLoader.lastUpdatedDate, to: Date(), toGranularity: .day)
+    if order == .orderedSame, let menu = menuLoader.loadMenuFromDisk() {
+      self.loadedMenu = menu
+      self.collectionView?.reloadData()
+      self.refreshControl.endRefreshing()
+    } else {
+      updateMenu()
+    }
   }
   
   @objc func updateMenu() {
-    loadedMenu = nil
-    collectionView?.reloadData()
     menuLoader.load { [unowned self] (menu) in
       self.loadedMenu = menu
       DispatchQueue.main.async { [unowned self] in

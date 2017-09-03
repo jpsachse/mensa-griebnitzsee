@@ -28,6 +28,11 @@ class TodayViewController: UIViewController, NCWidgetProviding {
   }
   
   func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
+    let order = Calendar.current.compare(menuLoader.lastUpdatedDate, to: Date(), toGranularity: .day)
+    if order == .orderedSame, menuLoader.loadMenuFromDisk() != nil, loadedMenu != nil {
+      completionHandler(.noData)
+      return
+    }
     menuLoader.load { [unowned self] (menu) in
       self.loadedMenu = menu
       if menu == nil {

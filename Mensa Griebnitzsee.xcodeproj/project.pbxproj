@@ -95,6 +95,8 @@
 		74D11F011F4265C6001A54DF /* MensaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MensaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74D11F031F4265C6001A54DF /* MensaKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MensaKit.h; sourceTree = "<group>"; };
 		74D11F041F4265C6001A54DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		74F2D3981F55F3FC00362A8D /* Today's Menu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Today's Menu.entitlements"; sourceTree = "<group>"; };
+		74F2D3991F55F42700362A8D /* Mensa Griebnitzsee.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Mensa Griebnitzsee.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 		74022C511F3C65B000EC6D21 /* Mensa Griebnitzsee */ = {
 			isa = PBXGroup;
 			children = (
+				74F2D3991F55F42700362A8D /* Mensa Griebnitzsee.entitlements */,
 				74022C521F3C65B000EC6D21 /* AppDelegate.swift */,
 				74022C541F3C65B000EC6D21 /* ViewController.swift */,
 				74022C6E1F3CB9F100EC6D21 /* MenuHeaderCollectionReusableView.swift */,
@@ -172,6 +175,7 @@
 		74B4E3681F41B8BC00AE5F8E /* Today's Menu */ = {
 			isa = PBXGroup;
 			children = (
+				74F2D3981F55F3FC00362A8D /* Today's Menu.entitlements */,
 				74B4E3691F41B8BC00AE5F8E /* TodayViewController.swift */,
 				7482B5801F4273D400850A8E /* TodayMenuTableViewCell.swift */,
 				74B4E36B1F41B8BC00AE5F8E /* MainInterface.storyboard */,
@@ -277,9 +281,19 @@
 				TargetAttributes = {
 					74022C4E1F3C65B000EC6D21 = {
 						CreatedOnToolsVersion = 9.0;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					74B4E3631F41B8BC00AE5F8E = {
 						CreatedOnToolsVersion = 9.0;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					74D11F001F4265C6001A54DF = {
 						CreatedOnToolsVersion = 9.0;
@@ -520,6 +534,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Mensa Griebnitzsee/Mensa Griebnitzsee.entitlements";
 				DEVELOPMENT_TEAM = 594YA6U8LU;
 				INFOPLIST_FILE = "Mensa Griebnitzsee/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -535,6 +550,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Mensa Griebnitzsee/Mensa Griebnitzsee.entitlements";
 				DEVELOPMENT_TEAM = 594YA6U8LU;
 				INFOPLIST_FILE = "Mensa Griebnitzsee/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -548,6 +564,7 @@
 		74B4E3721F41B8BC00AE5F8E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Today's Menu/Today's Menu.entitlements";
 				DEVELOPMENT_TEAM = 594YA6U8LU;
 				INFOPLIST_FILE = "Today's Menu/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -562,6 +579,7 @@
 		74B4E3731F41B8BC00AE5F8E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Today's Menu/Today's Menu.entitlements";
 				DEVELOPMENT_TEAM = 594YA6U8LU;
 				INFOPLIST_FILE = "Today's Menu/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";

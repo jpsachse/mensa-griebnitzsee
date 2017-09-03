@@ -12,6 +12,15 @@ public typealias MenuLoadCompletionHandler = (Menu?) -> ()
 public class MenuLoader {
   
   public private(set) var loading = false
+  private let userDefaults = UserDefaults(suiteName: "group.de.jps.mensa-griebnitzsee")
+  public var lastUpdatedDate: Date {
+    get {
+      return userDefaults?.object(forKey: "lastUpdateTime") as? Date ?? Date(timeIntervalSince1970: 0)
+    }
+    set {
+      userDefaults?.set(newValue, forKey: "lastUpdateTime")
+    }
+  }
   
   public init() {}
 
@@ -27,7 +36,7 @@ public class MenuLoader {
     }
     let daysRequest = URLRequest(url: daysUrl)
     let session = URLSession(configuration: .default)
-    let daysTask = session.dataTask(with: daysRequest) { (data, response, error) in
+    let daysTask = session.dataTask(with: daysRequest) { [unowned self] (data, response, error) in
       guard let data = data else {
         complete(nil)
         return
@@ -54,6 +63,8 @@ public class MenuLoader {
               menu.entries.sort(by: { (first, second) -> Bool in
                 return first.date < second.date
               })
+              self.lastUpdatedDate = Date()
+              self.store(menu)
               complete(menu)
             }
           }
@@ -64,6 +75,19 @@ public class MenuLoader {
       }
     }
     daysTask.resume()
+  }
+  
+  private func store(_ menu: Menu) {
+    let encodedData = NSKeyedArchiver.archivedData(withRootObject: menu)
+    userDefaults?.set(encodedData, forKey: "loadedMenu")
+  }
+  
+  public func loadMenuFromDisk() -> Menu? {
+    guard let menuData = userDefaults?.data(forKey: "loadedMenu"),
+        let menu = NSKeyedUnarchiver.unarchiveObject(with: menuData) as? Menu else {
+      return nil
+    }
+    return menu
   }
     
 }
