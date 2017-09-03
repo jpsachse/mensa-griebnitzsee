@@ -19,7 +19,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+    updatePreferredLargestDisplayMode()
   }
   
   override func didReceiveMemoryWarning() {
@@ -29,19 +29,27 @@ class TodayViewController: UIViewController, NCWidgetProviding {
   
   func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
     let order = Calendar.current.compare(menuLoader.lastUpdatedDate, to: Date(), toGranularity: .day)
-    if order == .orderedSame, menuLoader.loadMenuFromDisk() != nil, loadedMenu != nil {
-      completionHandler(.noData)
-      return
+    let diskMenu = menuLoader.loadMenuFromDisk()
+    if order == .orderedSame {
+      if loadedMenu != nil {
+        completionHandler(.noData)
+        return
+      } else if diskMenu != nil {
+        loadedMenu = diskMenu
+        reloadUI()
+        completionHandler(.newData)
+        return
+      }
     }
     menuLoader.load { [unowned self] (menu) in
       self.loadedMenu = menu
       if menu == nil {
-        completionHandler(NCUpdateResult.noData)
+        completionHandler(.noData)
         return
       }
       DispatchQueue.main.sync { [unowned self] in
         self.reloadUI()
-        completionHandler(NCUpdateResult.newData)
+        completionHandler(.newData)
       }
     }
   }
@@ -52,6 +60,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
   }
   
   func reloadUI() {
+    updatePreferredLargestDisplayMode()
     // Make the widget huge at first to allow the tableview to layout the cells
     self.preferredContentSize = CGSize(width: self.view.frame.width, height: 1000)
     self.view.frame.size = self.preferredContentSize
@@ -63,6 +72,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
       self.preferredContentSize = CGSize(width: self.view.frame.width, height: 110)
     } else {
       self.preferredContentSize = self.tableView.contentSize
+    }
+  }
+  
+  func updatePreferredLargestDisplayMode() {
+    if let entry = loadedMenu?.entries.first, loadedMenu != nil && !entry.closed && entry.dishes.count > 0 {
+      extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+    } else {
+      extensionContext?.widgetLargestAvailableDisplayMode = .compact
     }
   }
   
@@ -86,7 +103,7 @@ extension TodayViewController: UITableViewDataSource {
       return tableView.dequeueReusableCell(withIdentifier: "todayMenuClosedCell", for: indexPath)
     }
     guard entry.dishes.count > indexPath.row else {
-        return tableView.dequeueReusableCell(withIdentifier: "todayMenuNoDataCell", for: indexPath)
+      return tableView.dequeueReusableCell(withIdentifier: "todayMenuNoDataCell", for: indexPath)
     }
     let cell = tableView.dequeueReusableCell(withIdentifier: "todayMenuDishCell", for: indexPath)
     guard let menuCell = cell as? TodayMenuTableViewCell else { return cell }
@@ -99,3 +116,4 @@ extension TodayViewController: UITableViewDataSource {
   }
   
 }
+
