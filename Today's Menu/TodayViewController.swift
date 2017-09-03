@@ -72,18 +72,21 @@ extension TodayViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     guard let loadedMenu = loadedMenu, let entry = loadedMenu.entries.first else { return 1 }
-    return entry.dishes.count
+    return max(entry.dishes.count, 1)
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if menuLoader.loading {
       return tableView.dequeueReusableCell(withIdentifier: "todayMenuLoadingCell", for: indexPath)
     }
-    guard let entry = loadedMenu?.entries.first, entry.dishes.count > indexPath.row else {
+    guard let entry = loadedMenu?.entries.first else {
       return tableView.dequeueReusableCell(withIdentifier: "todayMenuNoDataCell", for: indexPath)
     }
     guard !entry.closed else {
       return tableView.dequeueReusableCell(withIdentifier: "todayMenuClosedCell", for: indexPath)
+    }
+    guard entry.dishes.count > indexPath.row else {
+        return tableView.dequeueReusableCell(withIdentifier: "todayMenuNoDataCell", for: indexPath)
     }
     let cell = tableView.dequeueReusableCell(withIdentifier: "todayMenuDishCell", for: indexPath)
     guard let menuCell = cell as? TodayMenuTableViewCell else { return cell }
